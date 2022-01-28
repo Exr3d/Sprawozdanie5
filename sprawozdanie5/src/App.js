@@ -12,16 +12,19 @@ import { ToastContainer, toast } from 'react-toastify';
   import 'react-toastify/dist/ReactToastify.css';
 
 toast.configure()
+let informacje;
 const getFromApi = () => {
   Axios.get("http://127.0.0.1:8000/KartyGraficzne/api/karty/?format=json").then((response) => {
     var x =0
-    let informacje = []
+    informacje = []
     while (x < response.data.length) {
-        informacje[x] = response.data[x].id+ " "+ response.data[x].Marka + " " + response.data[x].Model + " "+response.data[x].VRAM+ " "+ response.data[x].avgCena
+        informacje[x] = "Karta "+ response.data[x].Marka + " " + response.data[x].Model + ", VRAM: "+response.data[x].VRAM+ ", średnia cena: "+ response.data[x].avgCena + ", częstotliwość: " + response.data[x].czestotliwosc;
         console.log(informacje[x]);
         x++; // increment
+        
       
     }
+    return informacje;
     
     
   })
@@ -30,24 +33,8 @@ const getFromApi = () => {
 
 
 function App() {
-  let informacje = []
-  
-    Axios.get("http://127.0.0.1:8000/KartyGraficzne/api/karty/?format=json").then((response) => {
-    var x =0
-    //let informacje = []
-    while (x < response.data.length) {
-        informacje[x] = "Karta "+ response.data[x].Marka + " " + response.data[x].Model + ", ilość vramu: "+response.data[x].VRAM+ ", średnia cena: "+ response.data[x].avgCena
-        console.log(informacje[x]);
-        
-      x++; // increment
-      
-    }
-    
-    
-  })
-  
-  
-  let info;
+  window.alert("Kliknij na obrazek, aby dostać informacje o danej karcie");
+  getFromApi();
   return (
     
     <div className="App">
